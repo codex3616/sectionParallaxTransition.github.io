@@ -1,0 +1,50 @@
+.button {
+  position: fixed;
+  right: 0;
+  margin: 33px;
+  margin-top: 28px;
+  width: 95px;
+  height: 95px;
+  background-color: #455ce9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+
+  .burger {
+    width: 100%;
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      width: 35%;
+      background-color: white;
+      height: 1px;
+      margin: auto;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    &::after {
+      top: -5px;
+    }
+
+    &::before {
+      top: 5px;
+    }
+  }
+
+  .burgerActive {
+    &::after {
+      top: -1px;
+      transform: rotate(45deg);
+    }
+
+    &::before {
+      top: 0px;
+      transform: rotate(-45deg);
+    }
+  }
+}
