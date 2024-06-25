@@ -1,50 +1,58 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./page.module.css";
-import Project from "../components/project/index";
-import Modal from "../components/modal/index";
+import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 const Page = () => {
-  const [modal, setModal] = useState({ active: false, index: 0 });
-  const projects = [
-    {
-      title: " BurgerZest",
-      src: "project.png",
-      color: "#000000",
-    },
-    {
-      title: " Login App",
-      src: "project1.png",
-      color: "#8C8C8C",
-    },
-    {
-      title: "MoveInfo",
-      src: "project2.png",
-      color: "#EFE8D3",
-    },
-    {
-      title: " NoteTaking",
-      src: "project3.png",
-      color: "#706D63",
-    },
-  ];
+  const firstText = useRef(null);
+  const secondText = useRef(null);
+  const slider = useRef(null);
+
+  let xPercent = 0;
+  let direction = 1; // -1 for move left and 1 for move right direction
+
+  useEffect(() => {
+    // for change direction of move while scrolling a page
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(slider.current, {
+      scrollTrigger: {
+        trigger: document.documentElement,
+        scrub: 0.25,
+        start: 0,
+        end: window.innerHeight,
+        onUpdate: (e) => (direction = e.direction * -1),
+      },
+      x: "-500px",
+    });
+
+    requestAnimationFrame(animation); // for inifinte text move
+  });
+
+  const animation = () => {
+    if (xPercent <= -100) {
+      xPercent = 0; // for left move infinite
+    } else if (xPercent > 0) {
+      xPercent = -100; // for right move infinite
+    }
+    gsap.set(firstText.current, { xPercent: xPercent });
+    gsap.set(secondText.current, { xPercent: xPercent });
+    xPercent += 0.1 * direction;
+    requestAnimationFrame(animation);
+  };
 
   return (
     <>
       <main className={styles.main}>
-        <div className={styles.body}>
-          {projects.map((project, index) => {
-            return (
-              <Project
-                key={index}
-                index={index}
-                title={project.title}
-                setModal={setModal}
-              />
-            );
-          })}
+        <Image alt="bg img" src="/images/demo3.jpeg" fill={true} />
+
+        <div className={styles.sliderContainer}>
+          <div ref={slider} className={styles.slider}>
+            <p ref={firstText}>Akash Singh -</p>
+            <p ref={secondText}>Akash Singh -</p>
+          </div>
         </div>
-        <Modal modal={modal} projects={projects} />
       </main>
     </>
   );
