@@ -14,6 +14,27 @@ pnpm dev
 bun dev
 ```
 
+for smooth scroll install npm i @studio-freight/lenis then
+
+step 1 =
+
+import Lenis from "@studio-freight/lenis";
+
+step 2 =
+// @@@@@@@@@@@@@@ lenis smooth scroll
+useEffect(() => {
+const lenis = new Lenis();
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+}, []);
+// @@@@@@@@@@@@@@@@@@@@@@ Done
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
