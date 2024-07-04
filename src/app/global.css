@@ -1,8 +1,8 @@
 body {
-  margin: 2rem;
-  /* background-color: aqua; */
-}
-
-p {
-  font-size: 1.7rem;
+  background-color: #cccccc;
+  margin: 0px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  margin-top: 100vh;
+  margin-bottom: 100vh;
 }
